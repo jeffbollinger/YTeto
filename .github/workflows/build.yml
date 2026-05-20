@@ -340,7 +340,7 @@ jobs:
         if: ${{ inputs.enable_gonerino }}
         run: cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 && mv packages/*.deb ../gonerino.deb
 
-     - name: Build YTeto
+      - name: Build YTeto
         run: make clean package DEBUG=0 FINALPACKAGE=1 && mv packages/*.deb yteto.deb
 
       - name: Remove problematic app extensions  # <-- ADD THIS
