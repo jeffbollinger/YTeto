@@ -340,8 +340,17 @@ jobs:
         if: ${{ inputs.enable_gonerino }}
         run: cd Gonerino && make clean package DEBUG=0 FINALPACKAGE=1 && mv packages/*.deb ../gonerino.deb
 
-      - name: Build YTeto
+     - name: Build YTeto
         run: make clean package DEBUG=0 FINALPACKAGE=1 && mv packages/*.deb yteto.deb
+
+      - name: Remove problematic app extensions  # <-- ADD THIS
+        run: |
+          unzip -q YouTube.ipa -d ipa_tmp
+          rm -rf ipa_tmp/Payload/YouTube.app/PlugIns/AppMigrationExtension.appex
+          cd ipa_tmp
+          zip -qr ../YouTube.ipa Payload
+          cd ..
+          rm -rf ipa_tmp
 
       - name: Inject tweaks
         run: |
